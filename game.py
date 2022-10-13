@@ -1,5 +1,5 @@
 """ Programme qui effectue le jeu du Morpion """
-
+from player import Joueur
 import os
 
 class Morpion:
@@ -12,8 +12,6 @@ class Morpion:
             playerO (str): 
         """
         self.tableau = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
-        self.joueurX = 'X'
-        self.joueurO = 'O'
         
         
     def afficher_tableau(self):
@@ -118,7 +116,7 @@ class Morpion:
                 if self.tableau[p[i][0]][p[i][1]] == ' ':
                     self.tableau[p[i][0]][p[i][1]] = joueur
                 else:
-                    print("\n\n---------------------Attention:  Zone déjà occupée. Choisissez un emplacement non occupé ---------------------\n\n")
+                    print("\n\n--------------------- Attention:  Zone déjà occupée. Choisissez un emplacement non occupé ---------------------\n\n")
                     self.tourJoueur(joueur)
         self.afficher_tableau()
     
@@ -130,22 +128,22 @@ class Morpion:
         endOfGame= False
         
         while endOfGame is False:
-            self.tourJoueur(self.joueurO)
-            res = self.testTableau(self.joueurO)
-            if res == self.joueurO:
+            self.tourJoueur(Joueur.joueur1)
+            res = self.testTableau(Joueur.joueur1)
+            if res == Joueur.joueur1:
                 print("\n\n\n" + "\t"*5 + "++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n")
-                print("\t"*5 + "+++++++++++++++++++++++++++++++++++ Le joueur {} a gagné +++++++++++++++++++++++++++++++\n".format(self.joueurO))
+                print("\t"*5 + "+++++++++++++++++++++++++++++++++++ Le joueur {} a gagné +++++++++++++++++++++++++++++++\n".format(Joueur.joueur1))
                 print("\t"*5 + "++++++++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n\n")
                 break
             elif res == True:
                 print("################################## Match nul!!! ##################################")
             
             
-            self.tourJoueur(self.joueurX)
-            res = self.testTableau(self.joueurX)
-            if res == self.joueurX:
+            self.tourJoueur(Joueur.joueur2)
+            res = self.testTableau(Joueur.joueur2)
+            if res == Joueur.joueur2:
                 print("\n\n\n" + "\t"*5 + "++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n")
-                print("\t"*5 + "+++++++++++++++++++++++++++++++++++ Le joueur {} a gagné +++++++++++++++++++++++++++++\n".format(self.joueurX))
+                print("\t"*5 + "+++++++++++++++++++++++++++++++++++ Le joueur {} a gagné +++++++++++++++++++++++++++++\n".format(Joueur.joueur2))
                 print("\t"*5 + "++++++++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n\n")
                 break
             elif res == True:
@@ -154,7 +152,6 @@ class Morpion:
     
 
 
-# os.system('cls')
 m = Morpion()
 # m.afficher_tableau()
 m.tictactoe()
