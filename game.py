@@ -128,22 +128,24 @@ class Morpion:
         endOfGame= False
         
         while endOfGame is False:
-            self.tourJoueur(Joueur.joueur1)
-            res = self.testTableau(Joueur.joueur1)
-            if res == Joueur.joueur1:
+            j1 = Joueur.joueur1
+            self.tourJoueur(j1)
+            res = self.testTableau(j1)
+            if res == j1:
                 print("\n\n\n" + "\t"*5 + "++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n")
-                print("\t"*5 + "+++++++++++++++++++++++++++++++++++ Le joueur {} a gagné +++++++++++++++++++++++++++++++\n".format(Joueur.joueur1))
+                print("\t"*5 + "+++++++++++++++++++++++++++++++++++ Le joueur {} a gagné +++++++++++++++++++++++++++++++\n".format(j1))
                 print("\t"*5 + "++++++++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n\n")
                 break
             elif res == True:
                 print("################################## Match nul!!! ##################################")
             
             
-            self.tourJoueur(Joueur.joueur2)
-            res = self.testTableau(Joueur.joueur2)
-            if res == Joueur.joueur2:
+            j2 = Joueur.joueur2
+            self.tourJoueur(j2)
+            res = self.testTableau(j2)
+            if res == j2:
                 print("\n\n\n" + "\t"*5 + "++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n")
-                print("\t"*5 + "+++++++++++++++++++++++++++++++++++ Le joueur {} a gagné +++++++++++++++++++++++++++++\n".format(Joueur.joueur2))
+                print("\t"*5 + "+++++++++++++++++++++++++++++++++++ Le joueur {} a gagné +++++++++++++++++++++++++++++\n".format(j2))
                 print("\t"*5 + "++++++++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n\n")
                 break
             elif res == True:

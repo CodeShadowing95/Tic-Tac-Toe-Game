@@ -1,3 +1,3 @@
 class Joueur:
-    joueur1 = 'O'
-    joueur2 = 'X'
+    joueur1 = 'X'
+    joueur2 = 'O'
