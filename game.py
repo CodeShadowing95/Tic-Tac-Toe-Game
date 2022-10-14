@@ -128,9 +128,9 @@ class Morpion:
             8: (2, 1),
             9: (2, 2)
         }
+        
         print()
         print("\t"*5 + ">>>> Tour du joueur {}. Entrez un nombre de 1 à 9.".format(joueur))
-        
         position = self.saisieValide()
         
         for i in p:
@@ -160,9 +160,8 @@ class Morpion:
             [(2, 0), (1, 1,), (0, 2)],
             [(0, 0), (1, 1,), (2, 2)]
         ]
-    
-                
-    
+        
+        
     
     def tictactoe(self):
         self.afficher_tableau()
@@ -181,6 +180,7 @@ class Morpion:
                 # break
             elif res == True:
                 print("\n\n################################## Match nul!!! ##################################")
+                os.system("pause")
                 self.redemarrer()
             
             
@@ -195,6 +195,7 @@ class Morpion:
                 self.redemarrer()
             elif res == True:
                 print("\n\n################################## Match nul!!! ##################################")
+                os.system("pause")
                 self.redemarrer()
     
     
