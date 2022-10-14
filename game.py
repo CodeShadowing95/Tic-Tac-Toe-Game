@@ -35,34 +35,35 @@ class Morpion:
         print("\n")
     
     
-    def saisieValide(self):
-        nombre = int(input(">>>> "))
-        while nombre < 1 or nombre > 9:
-            print("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Entrez un nombre compris entre 1 et 9 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
-            nombre = int(input(">>>> "))
-            
-        return nombre
+    
+    def redemarrer(self):
+        self.__init__()
+        self.afficher_tableau()
     
     
     
     def testTableau(self, joueur):
         # Tests des différentes possibilités de gagner le jeu
         
-        """ Vérifier la 1ère ligne """
+        """ Vérifier verticalement """
         for i in range(0, 3):
             getScore = []
             for j in range(0, 3):
                 if self.tableau[i][j] == joueur:
                     getScore.append((self.tableau[i][j]))
+                    if j == 1:
+                        check1 = True
             if len(getScore) == 3:
                 return joueur
         
-        """ Vérifier la 1ère colonne """
+        """ Vérifier horizontalement """
         for i in range(0, 3):
             getScore = []
             for j in range(0, 3):
                 if self.tableau[j][i] == joueur:
                     getScore.append((self.tableau[j][i]))
+                    if j == 1:
+                        check2 = True
             if len(getScore) == 3:
                 return joueur
         
@@ -71,6 +72,8 @@ class Morpion:
         for i in range(0, 3):
             if self.tableau[i][i] == joueur:
                 getScore.append((self.tableau[i][i]))
+                if i == 1:
+                    check3 = True
             if len(getScore) == 3:
                 return joueur
         
@@ -78,6 +81,8 @@ class Morpion:
         for i in range(0, 3):
             if self.tableau[2-i][i] == joueur:
                 getScore.append((self.tableau[2-i][i]))
+                if i == 1:
+                    check4 = True
             if len(getScore) == 3:
                 return joueur
         
@@ -87,11 +92,27 @@ class Morpion:
             for j in range(0, 3):
                 if self.tableau[i][j] != " ":
                     c += 1
+                    
+        if c == 8:
+            if len(getScore) == 3:
+                return joueur
+            # return True
         if c == 9:
             if len(getScore) == 3:
                 return joueur
             return True
         return False
+    
+    
+    
+    def saisieValide(self):
+        nombre = int(input("\t"*5 + ">>>> "))
+        while nombre < 1 or nombre > 9:
+            print()
+            print("\t"*5 + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Entrez un nombre compris entre 1 et 9 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
+            nombre = int(input("\t"*5 + ">>>> "))
+        
+        return nombre
             
         
         
@@ -107,7 +128,8 @@ class Morpion:
             8: (2, 1),
             9: (2, 2)
         }
-        print(f">>>> Tour du joueur {joueur}. Entrez un nombre de 1 à 9.")
+        print()
+        print("\t"*5 + ">>>> Tour du joueur {}. Entrez un nombre de 1 à 9.".format(joueur))
         
         position = self.saisieValide()
         
@@ -115,10 +137,29 @@ class Morpion:
             if i == position:
                 if self.tableau[p[i][0]][p[i][1]] == ' ':
                     self.tableau[p[i][0]][p[i][1]] = joueur
+                    
                 else:
-                    print("\n\n--------------------- Attention:  Zone déjà occupée. Choisissez un emplacement non occupé ---------------------\n\n")
+                    print("\n")
+                    print("\t"*5 + "--------------------- Attention:  Zone déjà occupée. Choisissez un emplacement vide ---------------------\n\n")
                     self.tourJoueur(joueur)
         self.afficher_tableau()
+    
+    
+    
+    def gagnerJeu(self, joueur):
+        wins = [
+            # De haut en bas
+            [(0, 0), (0, 1), (0, 2)],
+            [(1, 0), (1, 1), (1, 2)],
+            [(2, 0), (2, 1), (2, 2)],
+            # De gauche à droite
+            [(0, 0), (1, 0), (2, 0)],
+            [(1, 0), (1, 1), (1, 2)],
+            [(2, 0), (2, 1), (2, 2)],
+            # Diagonales
+            [(2, 0), (1, 1,), (0, 2)],
+            [(0, 0), (1, 1,), (2, 2)]
+        ]
     
                 
     
@@ -133,11 +174,14 @@ class Morpion:
             res = self.testTableau(j1)
             if res == j1:
                 print("\n\n\n" + "\t"*5 + "++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n")
-                print("\t"*5 + "+++++++++++++++++++++++++++++++++++ Le joueur {} a gagné +++++++++++++++++++++++++++++++\n".format(j1))
-                print("\t"*5 + "++++++++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n\n")
-                break
+                print("\t"*5 + "++++++++++++++++++++++++++++++++ Le joueur {} a gagné ++++++++++++++++++++++++++++++++++\n".format(j1))
+                print("\t"*5 + "++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n\n")
+                os.system("pause")
+                self.redemarrer()
+                # break
             elif res == True:
-                print("################################## Match nul!!! ##################################")
+                print("\n\n################################## Match nul!!! ##################################")
+                self.redemarrer()
             
             
             j2 = Joueur.joueur2
@@ -145,11 +189,13 @@ class Morpion:
             res = self.testTableau(j2)
             if res == j2:
                 print("\n\n\n" + "\t"*5 + "++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n")
-                print("\t"*5 + "+++++++++++++++++++++++++++++++++++ Le joueur {} a gagné +++++++++++++++++++++++++++++\n".format(j2))
-                print("\t"*5 + "++++++++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n\n")
-                break
+                print("\t"*5 + "++++++++++++++++++++++++++++++++ Le joueur {} a gagné ++++++++++++++++++++++++++++++++++\n".format(j2))
+                print("\t"*5 + "++++++++++++++++++++++++++++++++++++ Félicitations ++++++++++++++++++++++++++++++++++++\n\n")
+                os.system("pause")
+                self.redemarrer()
             elif res == True:
                 print("\n\n################################## Match nul!!! ##################################")
+                self.redemarrer()
     
     
 
