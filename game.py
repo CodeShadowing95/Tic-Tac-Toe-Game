@@ -51,8 +51,6 @@ class Morpion:
             for j in range(0, 3):
                 if self.tableau[i][j] == joueur:
                     getScore.append((self.tableau[i][j]))
-                    if j == 1:
-                        check1 = True
             if len(getScore) == 3:
                 return joueur
         
@@ -62,8 +60,6 @@ class Morpion:
             for j in range(0, 3):
                 if self.tableau[j][i] == joueur:
                     getScore.append((self.tableau[j][i]))
-                    if j == 1:
-                        check2 = True
             if len(getScore) == 3:
                 return joueur
         
@@ -72,8 +68,6 @@ class Morpion:
         for i in range(0, 3):
             if self.tableau[i][i] == joueur:
                 getScore.append((self.tableau[i][i]))
-                if i == 1:
-                    check3 = True
             if len(getScore) == 3:
                 return joueur
         
@@ -81,8 +75,6 @@ class Morpion:
         for i in range(0, 3):
             if self.tableau[2-i][i] == joueur:
                 getScore.append((self.tableau[2-i][i]))
-                if i == 1:
-                    check4 = True
             if len(getScore) == 3:
                 return joueur
         
@@ -105,15 +97,16 @@ class Morpion:
     
     
     
-    def saisieValide(self):
-        nombre = int(input("\t"*5 + ">>>> "))
-        while nombre < 1 or nombre > 9:
+    def saisieValide(self, joueur):
+        print("\t"*5 + ">>>> Tour du joueur {}. Entrez un nombre de 1 à 9.".format(joueur))
+        nombre = input("\t"*5 + ">>>> ")
+        while not nombre.isnumeric() or int(nombre) not in [i for i in range(1,10)]:
             print()
-            print("\t"*5 + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Entrez un nombre compris entre 1 et 9 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
-            nombre = int(input("\t"*5 + ">>>> "))
-        
-        return nombre
+            print("\t"*5 + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Entrez uniquement des chiffres compris entre 1 et 9 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
+            nombre = input("\t"*5 + ">>>> ")
             
+        return int(nombre)
+        
         
         
     def tourJoueur(self, joueur):
@@ -130,8 +123,7 @@ class Morpion:
         }
         
         print()
-        print("\t"*5 + ">>>> Tour du joueur {}. Entrez un nombre de 1 à 9.".format(joueur))
-        position = self.saisieValide()
+        position = self.saisieValide(joueur)
         
         for i in p:
             if i == position:
@@ -160,6 +152,8 @@ class Morpion:
             [(2, 0), (1, 1,), (0, 2)],
             [(0, 0), (1, 1,), (2, 2)]
         ]
+        
+        pass
         
         
     
